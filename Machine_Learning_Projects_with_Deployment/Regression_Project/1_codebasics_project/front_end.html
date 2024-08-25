@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digit Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        label:hover {
+            background-color: #0056b3;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Digit Classifier</h1>
+        <input type="file" id="imgInput" accept="image/*">
+        <label for="imgInput">Choose an Image</label>
+        <button onclick="uploadImage()">Classify</button>
+        <p id="predictionResult"></p>
+        <p class="loading">Classifying...</p>
+    </div>
+
+    <script type="text/javascript">
+        async function uploadImage() {
+            const input = document.getElementById('imgInput');
+            if (!input.files[0]) {
+                alert("Please select a file to upload!");
+                return;
+            }
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                document.querySelector('.loading').style.display = 'block';
+                const response = await fetch('http://127.0.0.1:8000/predict-image/', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                document.getElementById('predictionResult').textContent = `Prediction: ${result.prediction}`;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed!');
+            } finally {
+                document.querySelector('.loading').style.display = 'none';
+            }
+        }
+
+        document.getElementById('imgInput').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : "Choose an Image";
+            document.querySelector('label[for="imgInput"]').textContent = fileName;
+        });
+    </script>
+</body>
+</html>

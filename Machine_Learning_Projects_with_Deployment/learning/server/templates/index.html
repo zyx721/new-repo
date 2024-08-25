@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <div class="task-form">
+            <input type="number" id="taskId" placeholder="Task ID" required />
+            <input type="text" id="taskTitle" placeholder="Task Title" required />
+            <textarea id="taskDescription" placeholder="Task Description"></textarea>
+            <button onclick="createTask()">Add Task</button>
+        </div>
+        <div id="tasksList"></div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
