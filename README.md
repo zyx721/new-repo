@@ -34,7 +34,7 @@ I've followed a structured path, starting from scratch and progressively diving 
 ![AI Roadmap](AI-Engineer-Roadmap-2024.webp)  
 
 ### Detailed Learning Path  
-![Learning Details](Screenshot-2025-03-16-124040.png)  
+![Learning Details](Screenshot 2025-03-16 124040.png)  
 
 ## 🛠️ Project Repository  
 This repository contains code, notes, and projects demonstrating my learning progress in AI.  
